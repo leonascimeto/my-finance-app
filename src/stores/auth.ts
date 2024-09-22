@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
 import api from "../services/api";
 
-interface AuthState {
+export interface AuthState {
   isAuthenticated: boolean;
   token: string | null;
   user: any;
+  loading: boolean;
 }
 
 export const useAuthStore = defineStore("auth", {
@@ -12,6 +13,7 @@ export const useAuthStore = defineStore("auth", {
     isAuthenticated: false,
     token: localStorage.getItem("token") || null,
     user: null,
+    loading: false,
   }),
   actions: {
     async login(email: string, password: string) {
@@ -56,16 +58,12 @@ export const useAuthStore = defineStore("auth", {
           const response = await api.get("/me");
           this.user = response.data.user;
           this.isAuthenticated = true;
-          console.log("user", this.user);
-          console.log("isAuthenticated", this.isAuthenticated);
-          console.log("token", this.token);
-          console.log("localStorage", localStorage.getItem("token"));
-          console.log("response", response.data.user);
         } catch (error) {
           console.log("erro no loadUser", error);
           this.logout();
         }
       }
+      this.loading = false;
     },
   },
 });

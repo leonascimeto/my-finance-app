@@ -1,17 +1,26 @@
 <template>
-  <div class="min-h-screen bg-gray-100">
-    <router-view />
+  <div>
+    <div
+      v-if="authStore.loading"
+      class="flex items-center justify-center min-h-screen"
+    >
+      <!-- Indicador de carregamento -->
+      <p>Carregando...</p>
+    </div>
+    <div v-else>
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
+import { useAuthStore } from "./stores/auth";
 
 export default defineComponent({
-  name: 'App',
+  setup() {
+    const authStore = useAuthStore();
+    return { authStore };
+  },
 });
 </script>
-
-<style>
-/* Você pode adicionar estilos globais aqui, se necessário */
-</style>
