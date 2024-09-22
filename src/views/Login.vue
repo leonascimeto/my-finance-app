@@ -24,15 +24,19 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '../stores/auth';
+
 
 export default defineComponent({
   setup() {
     const email = ref('');
     const password = ref('');
     const router = useRouter();
+    const authStore = useAuthStore();
 
     const onSubmit = () => {
       // Implementar lógica de autenticação
+      authStore.login();
       router.push('/dashboard');
     };
 

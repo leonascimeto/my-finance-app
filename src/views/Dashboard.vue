@@ -16,13 +16,16 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '../stores/auth';
 
 export default defineComponent({
   setup() {
     const router = useRouter();
+    const authStore = useAuthStore();
 
     const logout = () => {
       // Implementar lógica de logout
+      authStore.logout()
       router.push('/login');
     };
 

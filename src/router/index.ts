@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../views/Login.vue';
 import Signup from '../views/Signup.vue';
 import Dashboard from '../views/Dashboard.vue';
+import { useAuthStore } from '../stores/auth';
+
 
 const routes = [
   { path: '/', redirect: '/login' },
@@ -22,8 +24,8 @@ const router = createRouter({
 
 // Guarda de navegação para rotas protegidas
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = true; // Substitua pela lógica de autenticação real
-  if (to.meta.requiresAuth && !isAuthenticated) {
+  const authStore = useAuthStore();
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     next('/login');
   } else {
     next();
