@@ -51,8 +51,8 @@ export default defineComponent({
     const authStore = useAuthStore();
 
     const onSubmit = async () => {
-      await authStore.login(email.value, password.value);
-      router.push("/dashboard");
+      const success = await authStore.login(email.value, password.value);
+      if (success) router.push("/dashboard");
     };
 
     return { email, password, onSubmit };
