@@ -5,17 +5,37 @@
       <form @submit.prevent="onSubmit">
         <div>
           <label class="block text-sm">Email</label>
-          <input v-model="email" type="email" required class="w-full px-3 py-2 border rounded" />
+          <input
+            v-model="email"
+            type="email"
+            required
+            class="w-full px-3 py-2 border rounded"
+          />
         </div>
         <div>
           <label class="block text-sm">Senha</label>
-          <input v-model="password" type="password" required class="w-full px-3 py-2 border rounded" />
+          <input
+            v-model="password"
+            type="password"
+            required
+            class="w-full px-3 py-2 border rounded"
+          />
         </div>
         <div>
           <label class="block text-sm">Confirme a Senha</label>
-          <input v-model="confirmPassword" type="password" required class="w-full px-3 py-2 border rounded" />
+          <input
+            v-model="confirmPassword"
+            type="password"
+            required
+            class="w-full px-3 py-2 border rounded"
+          />
         </div>
-        <button type="submit" class="w-full py-2 mt-4 text-white bg-green-500 rounded">Cadastrar</button>
+        <button
+          type="submit"
+          class="w-full py-2 mt-4 text-white bg-green-500 rounded"
+        >
+          Cadastrar
+        </button>
       </form>
       <p class="text-center">
         Já tem uma conta?
@@ -26,23 +46,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   setup() {
-    const email = ref('');
-    const password = ref('');
-    const confirmPassword = ref('');
+    const email = ref("");
+    const password = ref("");
+    const confirmPassword = ref("");
     const router = useRouter();
 
     const onSubmit = () => {
       if (password.value !== confirmPassword.value) {
-        alert('As senhas não correspondem');
+        alert("As senhas não correspondem");
         return;
       }
       // Implementar lógica de cadastro
-      router.push('/dashboard');
+      router.push("/dashboard");
     };
 
     return { email, password, confirmPassword, onSubmit };
