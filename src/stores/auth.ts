@@ -31,7 +31,7 @@ export const useAuthStore = defineStore("auth", {
     },
     async signup(name: string, email: string, password: string) {
       try {
-        const response = await api.post("/auth/signup", {
+        const response = await api.post("/signup", {
           name,
           email,
           password,
@@ -43,7 +43,7 @@ export const useAuthStore = defineStore("auth", {
         this.user = response.data.user;
         router.push("/dashboard");
       } catch (error: any) {
-        throw error;
+        console.log(error);
       }
     },
     logout() {

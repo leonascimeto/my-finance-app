@@ -4,6 +4,15 @@
       <h2 class="text-2xl font-bold text-center">Cadastro</h2>
       <form @submit.prevent="onSubmit">
         <div>
+          <label class="block text-sm">Nome</label>
+          <input
+            v-model="name"
+            type="text"
+            required
+            class="w-full px-3 py-2 border rounded"
+          />
+        </div>
+        <div>
           <label class="block text-sm">Email</label>
           <input
             v-model="email"
@@ -46,26 +55,34 @@
 </template>
 
 <script lang="ts">
+import { useAuthStore } from "@/stores/auth";
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
   setup() {
+    const name = ref("");
     const email = ref("");
     const password = ref("");
     const confirmPassword = ref("");
     const router = useRouter();
+    const authStore = useAuthStore();
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
       if (password.value !== confirmPassword.value) {
         alert("As senhas não correspondem");
         return;
+      }
+      try {
+        await authStore.signup(name.value, email.value, password.value);
+      } catch (error) {
+        console.log("error ao cadastrar usuários");
       }
       // Implementar lógica de cadastro
       router.push("/dashboard");
     };
 
-    return { email, password, confirmPassword, onSubmit };
+    return { name, email, password, confirmPassword, onSubmit };
   },
 });
 </script>
