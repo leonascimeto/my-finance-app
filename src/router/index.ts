@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import Dashboard from "../views/Dashboard.vue";
+import Categories from "../views/Categories.vue";
 
 const routes = [
   { path: "/", name: "Home", component: Home },
@@ -15,6 +16,7 @@ const routes = [
     component: Dashboard,
     meta: { requiresAuth: true },
   },
+  { path: "/categories", name: "Categories", component: Categories },
 ];
 
 const router = createRouter({
