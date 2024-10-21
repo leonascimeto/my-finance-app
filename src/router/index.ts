@@ -5,6 +5,7 @@ import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import Dashboard from "../views/Dashboard.vue";
 import Categories from "../views/Categories.vue";
+import Expenses from "../views/Expenses.vue";
 
 const routes = [
   { path: "/", name: "Home", component: Home },
@@ -17,6 +18,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   { path: "/categories", name: "Categories", component: Categories },
+  { path: "/expenses", name: "Expenses", component: Expenses },
 ];
 
 const router = createRouter({
