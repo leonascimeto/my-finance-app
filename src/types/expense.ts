@@ -1,10 +1,11 @@
+import type { Category } from "./category";
 import type { PaginatedResponse, SimpleResponse } from "./response";
 
 export interface Expense {
   _id?: string;
   description: string;
   amount: number;
-  categories?: string[];
+  categories?: Category[];
   payment_method: string;
   recurrence: string;
   installments?: number;

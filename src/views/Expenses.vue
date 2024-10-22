@@ -104,29 +104,20 @@
   
       <!-- Lista de Despesas -->
       <div class="mt-10">
-        <h2 class="text-xl font-bold mb-4">Despesas Recentes</h2>
-        <div class="overflow-x-auto">
-          <table class="min-w-full bg-white">
-            <thead>
-              <tr>
-                <th class="py-2 px-4 border-b">Descrição</th>
-                <th class="py-2 px-4 border-b">Valor</th>
-                <th class="py-2 px-4 border-b">Método</th>
-                <th class="py-2 px-4 border-b">Recorrência</th>
-                <th class="py-2 px-4 border-b">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="expense in expenses"
-                :key="expense._id"
-                class="text-center"
-              >
-                <td class="py-2 px-4 border-b">{{ expense.description }}</td>
-                <td class="py-2 px-4 border-b">{{ expense.amount }}</td>
-                <td class="py-2 px-4 border-b">{{ expense.payment_method }}</td>
-                <td class="py-2 px-4 border-b">{{ expense.recurrence }}</td>
-                <td class="py-2 px-4 border-b">
+        <h2 class="text-xl font-bold mb-4">Despesas</h2>
+        <draggable v-model="expenses" class="space-y-4">
+          <transition-group>
+            <div
+              v-for="expense in expenses"
+              :key="expense._id"
+              class="bg-white shadow rounded px-4 py-6 flex flex-col"
+            >
+              <div class="flex justify-between items-start">
+                <h3>{{ expense.description }}</h3>
+                <p class="text-gray-600">Valor: R$ {{ expense.amount }}</p>
+                <p class="text-gray-600">Método: {{ expense.payment_method }}</p>
+                <p class="text-gray-600">Recorrência: {{ expense.recurrence }}</p>
+                <p class="text-gray-600">Status: 
                   <span
                     :class="[
                       'px-2 py-1 rounded-full text-xs',
@@ -135,13 +126,45 @@
                         : 'bg-yellow-200 text-yellow-800',
                     ]"
                   >
-                    {{ expense.status === "pago" ? "Pago" : "Pendente" }}
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                   {{ expense.status === "pago" ? "Pago" : "Pendente" }}
+                 </span>
+                </p>
+                <!-- Categorias -->
+                <div class="mt-2 flex flex-wrap gap-2">
+                    <span
+                      v-for="category in expense.categories"
+                      :key="category._id"
+                      class="px-2 py-1 bg-blue-200 text-blue-800 rounded-full text-xs flex items-center"
+                    >
+                      {{ category.name }}
+                      <button
+                        @click=""
+                        class="ml-1 text-blue-600 hover:text-blue-800 focus:outline-none"
+                      >
+                        &times;
+                      </button>
+                    </span>
+                   
+                  <!--adicionar v-select-->
+                  </div>
+              </div>
+              <div class= "flex space-x-2">
+                <button
+                    @click=""
+                    class="text-blue-500 hover:text-blue-700"
+                  >
+                    ✏️
+                  </button>
+                <button
+                    @click=""
+                    class="text-red-500 hover:text-red-700"
+                  >
+                    🗑️
+                  </button>
+              </div>
+            </div>
+          </transition-group>
+        </draggable>
       </div>
     </div>
   </DefaultLayout>
