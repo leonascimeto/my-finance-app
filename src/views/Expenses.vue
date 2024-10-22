@@ -102,69 +102,81 @@
         </div>
       </form>
   
-      <!-- Lista de Despesas -->
-      <div class="mt-10">
+       <!-- Lista de Despesas -->
+       <div class="mt-10">
         <h2 class="text-xl font-bold mb-4">Despesas</h2>
-        <draggable v-model="expenses" class="space-y-4">
-          <transition-group>
-            <div
-              v-for="expense in expenses"
-              :key="expense._id"
-              class="bg-white shadow rounded px-4 py-6 flex flex-col"
-            >
-              <div class="flex justify-between items-start">
-                <h3>{{ expense.description }}</h3>
-                <p class="text-gray-600">Valor: R$ {{ expense.amount }}</p>
-                <p class="text-gray-600">Método: {{ expense.payment_method }}</p>
-                <p class="text-gray-600">Recorrência: {{ expense.recurrence }}</p>
-                <p class="text-gray-600">Status: 
-                  <span
-                    :class="[
-                      'px-2 py-1 rounded-full text-xs',
-                      expense.status === 'pago'
-                        ? 'bg-green-200 text-green-800'
-                        : 'bg-yellow-200 text-yellow-800',
-                    ]"
-                  >
-                   {{ expense.status === "pago" ? "Pago" : "Pendente" }}
-                 </span>
-                </p>
-                <!-- Categorias -->
-                <div class="mt-2 flex flex-wrap gap-2">
-                    <span
-                      v-for="category in expense.categories"
-                      :key="category._id"
-                      class="px-2 py-1 bg-blue-200 text-blue-800 rounded-full text-xs flex items-center"
-                    >
-                      {{ category.name }}
-                      <button
-                        @click=""
-                        class="ml-1 text-blue-600 hover:text-blue-800 focus:outline-none"
-                      >
-                        &times;
-                      </button>
-                    </span>
-                   
-                  <!--adicionar v-select-->
-                  </div>
-              </div>
-              <div class= "flex space-x-2">
-                <button
-                    @click=""
-                    class="text-blue-500 hover:text-blue-700"
-                  >
-                    ✏️
-                  </button>
-                <button
-                    @click=""
-                    class="text-red-500 hover:text-red-700"
-                  >
-                    🗑️
-                  </button>
-              </div>
+        <div class="space-y-4">
+          <div
+            v-for="expense in expenses"
+            :key="expense._id"
+            class="bg-white shadow rounded px-4 py-4"
+          >
+            <!-- First line: Title and amount -->
+            <div class="flex justify-between items-center">
+              <h3 :style="{ fontSize: '20px' }" class="font-bold">{{ expense.description }}</h3>
+              <p :style="{ fontSize: '28px' }" class="text-gray-600 font-medium">R$ {{ expense.amount }}</p>
             </div>
-          </transition-group>
-        </draggable>
+
+            <!-- Second line: Flags without labels -->
+            <div class="flex space-x-2 mt-2">
+              <span class="px-2 py-1 bg-blue-200 text-blue-800 rounded-full text-xs">
+                {{ expense.payment_method }}
+              </span>
+              <span
+                :class="[
+                  'px-2 py-1 rounded-full text-xs',
+                  expense.status === 'pago'
+                    ? 'bg-green-200 text-green-800'
+                    : 'bg-yellow-200 text-yellow-800',
+                ]"
+              >
+                {{ expense.status === 'pago' ? 'Pago' : 'Pendente' }}
+              </span>
+              <span class="px-2 py-1 bg-purple-200 text-purple-800 rounded-full text-xs">
+                {{ expense.recurrence }}
+              </span>
+            </div>
+
+            <!-- Third line: Categories -->
+            <div class="mt-2 flex flex-wrap gap-2">
+              <span
+                v-for="category in expense.categories"
+                :key="category._id"
+                class="px-2 py-1 bg-blue-200 text-blue-800 rounded-full text-xs flex items-center"
+              >
+                {{ category.name }}
+                <button
+                  @click=""
+                  class="ml-1 text-blue-600 hover:text-blue-800 focus:outline-none"
+                >
+                  &times;
+                </button>
+              </span>
+            </div>
+
+            <!-- Actions: Add Categories, Edit, Delete -->
+            <div class="mt-2 flex space-x-2">
+              <button
+                @click=""
+                class="px-3 py-1 rounded-full text-xs font-semibold bg-green-500 text-white hover:bg-green-600 transition-colors"
+              >
+                <i class="fas fa-plus mr-1"></i>Adicionar Categorias
+              </button>
+              <button
+                @click=""
+                class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+              >
+                <i class="fas fa-edit mr-1"></i>Editar
+              </button>
+              <button
+                @click=""
+                class="px-3 py-1 rounded-full text-xs font-semibold bg-red-500 text-white hover:bg-red-600 transition-colors"
+              >
+                <i class="fas fa-trash-alt mr-1"></i>Excluir
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </DefaultLayout>
